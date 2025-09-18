@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class Issuer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_issuer;
+    private Long id;
 
     @Column(nullable = false)
     private String name;
