@@ -1,0 +1,26 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: bankopsapi_db
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: bankopsapi
+    ports:
+      - "5432:5432"
+    volumes:
+      - bankopsapi_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: bankopsapi_pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@bank.com
+      PGADMIN_DEFAULT_PASSWORD: bank123
+    ports:
+      - "8081:80"
+
+volumes:
+  bankopsapi_data:
