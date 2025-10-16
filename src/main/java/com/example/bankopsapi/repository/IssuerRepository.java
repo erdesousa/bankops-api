@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IssuerRepository extends JpaRepository<Issuer, Long> {
-    boolean findByName(String name);
+    boolean existsByName(String name);
 }

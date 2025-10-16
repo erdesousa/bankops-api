@@ -2,6 +2,7 @@ package com.example.bankopsapi.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,7 +27,7 @@ public class Card {
     @Column(nullable = false)
     private String cardType;
 
-    @NotBlank(message = "Pin attempts can´t be empty")
+    @NotNull(message = "Pin attempts can´t be empty")
     @Column(nullable = false)
     private Integer pinAttempts;
 
@@ -38,19 +39,19 @@ public class Card {
     @Column(nullable = false)
     private String securityCode;
 
-    @NotBlank(message = "Accept approach can´t be empty")
+    @NotNull(message = "Accept approach can´t be empty")
     @Column(nullable = false)
     private Boolean acceptApproach;
 
-    @NotBlank(message = "Online purchase can´t be empty")
+    @NotNull(message = "Online purchase can´t be empty")
     @Column(nullable = false)
     private Boolean onlinePurchase;
 
-    @NotBlank(message = "Card international can´t be empty")
+    @NotNull(message = "Card international can´t be empty")
     @Column(nullable = false)
     private Boolean cardInternational;
 
-    @NotBlank(message = "Issuer id can´t be empty")
+    @NotNull(message = "Issuer id can´t be empty")
     @OneToOne
     @JoinColumn(name = "issuer_id", nullable = false, unique = true)
     private Issuer issuer;

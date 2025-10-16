@@ -22,7 +22,7 @@ public class IssuerService {
 
     public Issuer createIssuer(IssuerRequestDTO request) {
 
-        if (issuerRepository.findByName(request.name())) {
+        if (issuerRepository.existsByName(request.name())) {
             throw new ExistsIssuerNameException();
         }
 
