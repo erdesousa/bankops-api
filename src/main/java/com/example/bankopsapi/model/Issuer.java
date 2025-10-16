@@ -1,11 +1,11 @@
 package com.example.bankopsapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "issuers")
@@ -16,7 +16,7 @@ import java.util.UUID;
 public class Issuer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
+    private Long id;
 
     @Column(nullable = false)
     private String name;
@@ -26,5 +26,6 @@ public class Issuer {
     private LocalDateTime createdAt;
 
     @OneToOne(mappedBy = "issuer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private Card card;
 }

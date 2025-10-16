@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -22,12 +21,12 @@ public class IssuerService {
         return issuerRepository.findAll();
     }
 
-    public Issuer findById(UUID id) {
+    public Issuer findById(Long id) {
         return issuerRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Emissor não encontrado."));
     }
 
-    public void deleteIssuer(UUID id) {
+    public void deleteIssuer(Long id) {
         issuerRepository.deleteById(id);
     }
 }

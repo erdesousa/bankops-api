@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("api/v1/issuers")
@@ -28,12 +27,12 @@ public class IssuerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Issuer> findByIdIssuer(@PathVariable UUID id) {
+    public ResponseEntity<Issuer> findByIdIssuer(@PathVariable Long id) {
         return ResponseEntity.ok(issuerService.findById(id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteIssuer(@PathVariable UUID id) {
+    public ResponseEntity<Void> deleteIssuer(@PathVariable Long id) {
         issuerService.deleteIssuer(id);
         return ResponseEntity.noContent().build();
     }
