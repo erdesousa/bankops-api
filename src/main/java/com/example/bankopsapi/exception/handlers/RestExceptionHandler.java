@@ -1,7 +1,6 @@
 package com.example.bankopsapi.exception.handlers;
 
-import com.example.bankopsapi.exception.CardNotFoundException;
-import com.example.bankopsapi.exception.IssuerNotFoundException;
+import com.example.bankopsapi.exception.*;
 import com.example.bankopsapi.exception.messages.RestErrorMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +18,24 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(CardNotFoundException.class)
     private ResponseEntity<RestErrorMessage> cardNotFoundException(CardNotFoundException exception) {
+        RestErrorMessage jsonErrorResponse = new RestErrorMessage(HttpStatus.NOT_FOUND ,exception.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(jsonErrorResponse);
+    }
+
+    @ExceptionHandler(NoCardFoundException.class)
+    private ResponseEntity<RestErrorMessage> noCardFoundException(NoCardFoundException exception) {
+        RestErrorMessage jsonErrorResponse = new RestErrorMessage(HttpStatus.NOT_FOUND ,exception.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(jsonErrorResponse);
+    }
+
+    @ExceptionHandler(InvalidCardIdException.class)
+    private ResponseEntity<RestErrorMessage> invalidCardIdException(InvalidCardIdException exception) {
+        RestErrorMessage jsonErrorResponse = new RestErrorMessage(HttpStatus.NOT_FOUND ,exception.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(jsonErrorResponse);
+    }
+
+    @ExceptionHandler(ExistsCardIssuerException.class)
+    private ResponseEntity<RestErrorMessage> existsCardIssuerException(ExistsCardIssuerException exception) {
         RestErrorMessage jsonErrorResponse = new RestErrorMessage(HttpStatus.NOT_FOUND ,exception.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(jsonErrorResponse);
     }
