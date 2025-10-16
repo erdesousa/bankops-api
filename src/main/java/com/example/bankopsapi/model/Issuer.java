@@ -19,7 +19,16 @@ public class Issuer {
     private Long id;
 
     @Column(nullable = false)
+    private String bin;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
+    private String flag;
+
+    @Column(nullable = false)
+    private String country;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

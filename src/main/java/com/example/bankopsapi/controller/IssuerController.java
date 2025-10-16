@@ -1,5 +1,6 @@
 package com.example.bankopsapi.controller;
 
+import com.example.bankopsapi.dto.request.IssuerRequestDTO;
 import com.example.bankopsapi.model.Issuer;
 import com.example.bankopsapi.service.IssuerService;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +18,8 @@ public class IssuerController {
     private final IssuerService issuerService;
 
     @PostMapping
-    public ResponseEntity<Issuer> createIssuer(@RequestBody Issuer issuer) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(issuerService.createIssuer(issuer));
+    public ResponseEntity<Issuer> createIssuer(@RequestBody IssuerRequestDTO request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(issuerService.createIssuer(request));
     }
 
     @GetMapping

@@ -1,6 +1,8 @@
 package com.example.bankopsapi.service;
 
-import com.example.bankopsapi.dto.CardRequestDTO;
+import com.example.bankopsapi.dto.request.CardRequestDTO;
+import com.example.bankopsapi.exception.CardNotFoundException;
+import com.example.bankopsapi.exception.IssuerNotFoundException;
 import com.example.bankopsapi.model.Card;
 import com.example.bankopsapi.model.Issuer;
 import com.example.bankopsapi.repository.CardRepository;
@@ -19,10 +21,17 @@ public class CardService {
 
     public Card createCard(CardRequestDTO request) {
         Issuer issuer = issuerRepository.findById(request.issuerId())
-                .orElseThrow(() -> new RuntimeException("Emissor não encontrado."));
+                .orElseThrow(IssuerNotFoundException::new);
 
         Card card = Card.builder()
                 .name(request.name())
+                .cardType(request.cardType())
+                .pinAttempts(request.pinAttempts())
+                .validity(request.validity())
+                .securityCode(request.securityCode())
+                .acceptApproach(request.acceptApproach())
+                .onlinePurchase(request.onlinePurchase())
+                .cardInternational(request.cardInternational())
                 .issuer(issuer)
                 .build();
 
@@ -35,7 +44,7 @@ public class CardService {
 
     public Card findById(Long id) {
         return cardRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Cartão não encontrado."));
+                .orElseThrow(CardNotFoundException::new);
     }
 
     public void deleteCard(Long id) {

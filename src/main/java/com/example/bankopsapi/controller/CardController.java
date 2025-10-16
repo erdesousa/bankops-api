@@ -1,6 +1,6 @@
 package com.example.bankopsapi.controller;
 
-import com.example.bankopsapi.dto.CardRequestDTO;
+import com.example.bankopsapi.dto.request.CardRequestDTO;
 import com.example.bankopsapi.model.Card;
 import com.example.bankopsapi.service.CardService;
 import lombok.RequiredArgsConstructor;

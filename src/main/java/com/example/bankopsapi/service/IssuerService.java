@@ -1,5 +1,7 @@
 package com.example.bankopsapi.service;
 
+import com.example.bankopsapi.dto.request.IssuerRequestDTO;
+import com.example.bankopsapi.exception.IssuerNotFoundException;
 import com.example.bankopsapi.model.Issuer;
 import com.example.bankopsapi.repository.IssuerRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +15,14 @@ public class IssuerService {
 
     private final IssuerRepository issuerRepository;
 
-    public Issuer createIssuer(Issuer issuer) {
+    public Issuer createIssuer(IssuerRequestDTO request) {
+        Issuer issuer = Issuer.builder()
+                .bin(request.bin())
+                .name(request.name())
+                .flag(request.flag())
+                .country(request.country())
+                .build();
+
         return issuerRepository.save(issuer);
     }
 
@@ -23,7 +32,7 @@ public class IssuerService {
 
     public Issuer findById(Long id) {
         return issuerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Emissor não encontrado."));
+                .orElseThrow(IssuerNotFoundException::new);
     }
 
     public void deleteIssuer(Long id) {
