@@ -50,6 +50,7 @@ public class Card {
     @Column(nullable = false)
     private Boolean cardInternational;
 
+    @NotBlank(message = "Issuer id can´t be empty")
     @OneToOne
     @JoinColumn(name = "issuer_id", nullable = false, unique = true)
     private Issuer issuer;
