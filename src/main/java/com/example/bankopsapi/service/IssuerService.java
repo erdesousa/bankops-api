@@ -2,10 +2,8 @@ package com.example.bankopsapi.service;
 
 import com.example.bankopsapi.dto.request.IssuerRequestDTO;
 import com.example.bankopsapi.exception.exists.ExistsIssuerNameException;
-import com.example.bankopsapi.exception.invalid.InvalidCardIdException;
 import com.example.bankopsapi.exception.invalid.InvalidIssuerIdException;
 import com.example.bankopsapi.exception.notfound.IssuerNotFoundException;
-import com.example.bankopsapi.exception.notfound.NoCardFoundException;
 import com.example.bankopsapi.exception.notfound.NoIssuerFoundException;
 import com.example.bankopsapi.model.Issuer;
 import com.example.bankopsapi.repository.IssuerRepository;

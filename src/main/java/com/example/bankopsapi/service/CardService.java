@@ -1,5 +1,6 @@
 package com.example.bankopsapi.service;
 
+import com.example.bankopsapi.dto.event.CardEventDTO;
 import com.example.bankopsapi.dto.request.CardRequestDTO;
 import com.example.bankopsapi.exception.exists.ExistsCardIssuerException;
 import com.example.bankopsapi.exception.invalid.InvalidCardIdException;
@@ -8,11 +9,13 @@ import com.example.bankopsapi.exception.notfound.IssuerNotFoundException;
 import com.example.bankopsapi.exception.notfound.NoCardFoundException;
 import com.example.bankopsapi.model.Card;
 import com.example.bankopsapi.model.Issuer;
+import com.example.bankopsapi.producer.CardEventProducer;
 import com.example.bankopsapi.repository.CardRepository;
 import com.example.bankopsapi.repository.IssuerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -21,6 +24,7 @@ public class CardService {
 
     private final CardRepository cardRepository;
     private final IssuerRepository issuerRepository;
+    private final CardEventProducer cardEventProducer;
 
     public Card createCard(CardRequestDTO request) {
         if (cardRepository.existsById(request.issuerId())){
@@ -42,7 +46,17 @@ public class CardService {
                 .issuer(issuer)
                 .build();
 
-        return cardRepository.save(card);
+        Card savedCard = cardRepository.save(card);
+
+        CardEventDTO event = new CardEventDTO(
+                savedCard.getId(),
+                savedCard.getName(),
+                savedCard.getIssuer().getId(),
+                LocalDateTime.now()
+        );
+        cardEventProducer.sendCardCreatedEvent(event);
+
+        return savedCard;
     }
 
     public List<Card> listAllCards() {
