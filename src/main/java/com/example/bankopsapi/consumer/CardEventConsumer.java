@@ -12,31 +12,19 @@ import org.springframework.stereotype.Component;
 public class CardEventConsumer {
 
     /**
-     * Escuta o tópico de eventos de cartão e processa a mensagem.
-     *
-     * @param record O registro do consumidor contendo a mensagem.
+     * @param record The consumer record containing the message.
      */
     @KafkaListener(topics = KafkaConfig.CARD_EVENTS_TOPIC, groupId = "card-processor-group")
     public void listenCardEvents(ConsumerRecord<String, CardEventDTO> record) {
         CardEventDTO event = record.value();
 
         log.info("=================================================================================");
-        log.info("EVENTO KAFKA RECEBIDO: Tópico={}, Chave={}, Offset={}",
+        log.info("KAFKA EVENT RECEIVED: Topic={}, Key={}, Offset={}",
                 record.topic(), record.key(), record.offset());
-        log.info("Processando evento de criação de cartão: {}", event);
+        log.info("Processing card creation event: {}", event);
         log.info("=================================================================================");
 
-        // --- Lógica de Negócio Assíncrona ---
-        // Aqui você implementaria a lógica que não precisa ser síncrona, como:
-        // 1. Envio de notificação por e-mail/SMS
-        // 2. Registro de log de auditoria em um banco de dados secundário
-        // 3. Chamada a um serviço de análise de risco
-        // -------------------------------------
-
-        // Exemplo de lógica:
-        log.info("Simulando processamento assíncrono para o Cartão ID: {} (Emissor: {})",
+        log.info("Simulating asynchronous processing for the ID Card: {} (Issuer: {})",
                 event.cardId(), event.issuerId());
-
-        // O log de sucesso é a sua "interface" para ver o funcionamento!
     }
 }
